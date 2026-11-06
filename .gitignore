@@ -218,3 +218,26 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ===== Дополнения проекта «Тихий друг» =====
+
+# Секреты и локальные настройки окружения (не публиковать!)
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# Android / Kotlin / Gradle
+.gradle/
+build/
+local.properties
+captures/
+*.apk
+*.aab
+*.keystore
+*.jks
+.idea/
+*.iml
+.kotlin/
