@@ -1,0 +1,29 @@
+sequenceDiagram
+    autonumber
+    actor U as Пользователь
+    participant A as Приложение (Android)
+    participant CM as Credential Manager (Android)
+    participant FB as Firebase Authentication
+    participant B as Бэкенд (FastAPI)
+    participant DB as PostgreSQL
+
+    U->>A: Нажимает «Войти через Google»
+    A->>CM: Запрос входа через Google
+    CM->>U: Окно выбора Google-аккаунта
+    U->>CM: Выбирает аккаунт
+    CM-->>A: Google ID-токен
+    A->>FB: Вход с Google ID-токеном (Firebase SDK)
+    FB-->>A: Firebase ID-токен (JWT, 1 час) и refresh token
+    Note over A: refresh token хранится в Firebase SDK<br/>и на бэкенд не передаётся
+    A->>B: POST /api/v1/users<br/>Authorization: Bearer Firebase ID-токен<br/>{"timezone":"Europe/Moscow"}
+    B->>B: Проверка ID-токена (firebase-admin)<br/>и способа входа google.com
+    B->>DB: INSERT ... ON CONFLICT (firebase_uid) DO NOTHING
+    DB-->>B: Пользователь (новый или существующий)
+    B->>DB: Есть ли непринятые версии документов
+    DB-->>B: Результат
+    B-->>A: 201 {"id":"...","documents_acceptance_required":true/false}
+    alt documents_acceptance_required = true
+        A->>U: Экран «Принятие документов»
+    else documents_acceptance_required = false
+        A->>U: Главный экран
+    end
