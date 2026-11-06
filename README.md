@@ -16,7 +16,7 @@
 
 - Техническая документация: [docs/index.adoc](docs/index.adoc)
 - Архитектурные решения: [docs/adr](docs/adr)
-- Бизнес-постановка и требования ведутся в Confluence (раздел «Тихий друг»).
+- Бизнес-требования: [docs/business](docs/business)
 
 ## Статус
 
