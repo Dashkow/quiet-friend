@@ -1,0 +1,26 @@
+flowchart LR
+    DEV(["Разработчик"])
+    subgraph PH ["Телефон"]
+        direction TB
+        APP["Приложение<br/>Kotlin, Jetpack Compose"]
+        ROOM[("Room + SQLCipher<br/>локальная база")]
+        APP --- ROOM
+    end
+    subgraph VPS ["Сервер (VPS), Docker Compose"]
+        direction TB
+        CADDY["Caddy<br/>HTTPS, обратный прокси"]
+        BE["Бэкенд<br/>FastAPI"]
+        PG[("PostgreSQL")]
+        DZ["Dozzle<br/>просмотр логов"]
+        CADDY --> BE
+        CADDY --> DZ
+        BE --> PG
+    end
+    FB["Firebase<br/>Authentication"]
+    AI["ИИ-сервис<br/>GigaChat или Yandex"]
+    BK[("S3 в РФ<br/>бэкапы")]
+    APP -->|"HTTPS, JSON"| CADDY
+    DEV -->|"HTTPS, пароль; SSH"| VPS
+    BE -->|"проверка отзыва"| FB
+    BE -->|"тексты за неделю"| AI
+    BE -->|"pg_dump, шифрование"| BK
