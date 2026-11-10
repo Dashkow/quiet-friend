@@ -1,0 +1,55 @@
+# Локальный запуск: docker compose up --build
+# Перед первым запуском: cp .env.example .env и заполнить значения.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "127.0.0.1:5432:5432"   # доступ к базе только с этого компьютера
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    logging: &default-logging
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "7"
+
+  backend:
+    build:
+      context: ./backend
+      target: dev
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      TEST_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}_test
+      FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID}
+      FIREBASE_CREDENTIALS_FILE: /run/secrets/firebase_admin_key
+      MIN_APP_VERSION: ${MIN_APP_VERSION:-1.0.0}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    secrets:
+      - firebase_admin_key
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --no-access-log"
+    logging: *default-logging
+
+secrets:
+  firebase_admin_key:
+    file: ${FIREBASE_ADMIN_KEY_PATH}
+
+volumes:
+  pgdata:

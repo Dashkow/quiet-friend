@@ -246,3 +246,6 @@ captures/
 google-services.json
 *firebase-adminsdk*.json
 firebase-admin-key.json
+
+# Личные настройки редактора
+.vscode/
