@@ -241,3 +241,8 @@ captures/
 .idea/
 *.iml
 .kotlin/
+
+# Firebase: ключи и конфигурация (хранятся вне репозитория)
+google-services.json
+*firebase-adminsdk*.json
+firebase-admin-key.json
