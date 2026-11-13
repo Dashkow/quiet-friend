@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Тихий друг</string>
+
+    <!-- Экран 01. Вход -->
+    <string name="login_tagline">Место, где можно быть честным с собой</string>
+    <string name="login_button">Войти через Google</string>
+    <string name="login_other_methods">Другие способы входа не предусмотрены</string>
+    <string name="action_retry">Повторить</string>
+
+    <!-- Ошибки входа (анализ экрана 01: альтернативные сценарии и таблица ошибок) -->
+    <string name="error_no_internet">Для входа нужен интернет</string>
+    <string name="error_sign_in_failed">Не удалось войти. Попробуйте ещё раз</string>
+    <string name="error_generic">Что-то пошло не так. Попробуйте ещё раз чуть позже</string>
+
+    <!-- 426 UPGRADE_REQUIRED -->
+    <string name="upgrade_title">Пожалуйста, обновите приложение</string>
+    <string name="upgrade_button">Обновить в Google Play</string>
+
+    <!-- Временный экран после входа, пока нет следующих экранов -->
+    <string name="signed_in_title">Вход выполнен</string>
+    <string name="signed_in_next_documents">Дальше здесь будет экран принятия документов</string>
+    <string name="signed_in_next_home">Дальше здесь будет главный экран</string>
+</resources>

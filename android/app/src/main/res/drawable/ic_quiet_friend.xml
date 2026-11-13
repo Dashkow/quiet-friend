@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Логотип «тихий друг» из макета 01 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="112dp"
+    android:height="112dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#5FD3A8"
+        android:strokeColor="#2E7A5F"
+        android:strokeWidth="1.2"
+        android:pathData="M24,7c10,0 17,7 17,16s-6,17 -17,17S7,32 7,23 14,7 24,7z" />
+    <path
+        android:strokeColor="#0F3B2C"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M16,23q2.5,2.5 5,0M27,23q2.5,2.5 5,0" />
+    <path
+        android:strokeColor="#0F3B2C"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M21.5,29q2.5,2 5,0" />
+    <path
+        android:fillColor="#FF9E8A"
+        android:pathData="M12.3,27.5a2.2,2.2 0,1 0,4.4 0a2.2,2.2 0,1 0,-4.4 0z" />
+    <path
+        android:fillColor="#FF9E8A"
+        android:pathData="M31.3,27.5a2.2,2.2 0,1 0,4.4 0a2.2,2.2 0,1 0,-4.4 0z" />
+</vector>
